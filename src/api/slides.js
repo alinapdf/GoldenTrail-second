@@ -1,4 +1,3 @@
-import { filterFerroliList } from "./ferroli";
 import { buildHeaders } from "./http";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://goldentrail.az";
@@ -33,6 +32,5 @@ export const fetchSlides = async () => {
   }
 
   const data = await response.json();
-
-  return filterFerroliList(data);
+  return data;
 };
