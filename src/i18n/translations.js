@@ -84,6 +84,10 @@ const translations = {
       empty: "Kateqoriyalar mövcud deyil",
       cta: "Kataloqa keç",
     },
+    goods: {
+      addToCart: "Səbətə əlavə et",
+      inCart: "Səbətdə",
+    },
     navigation: {
       heating: "İsitmə",
       renewables: "Bərpa olunan enerji",
@@ -100,6 +104,12 @@ const translations = {
       sampleGlasses: "Rentgen qoruyucu eynəklər",
     },
     home: {
+      slider: {
+        orderNow: "İndi sifariş et",
+      },
+      popular: {
+        title: "Populyar məhsullar",
+      },
       newItems: "Новинки",
       warranty: {
         title: "Гарантия",
@@ -222,6 +232,10 @@ const translations = {
       empty: "Категории недоступны",
       cta: "Перейти в каталог",
     },
+    goods: {
+      addToCart: "Добавить в корзину",
+      inCart: "В корзине",
+    },
     navigation: {
       heating: "Отопление",
       renewables: "Возобновляемые источники энергии",
@@ -238,6 +252,12 @@ const translations = {
       sampleGlasses: "Очки рентгенозащитные",
     },
     home: {
+      slider: {
+        orderNow: "Заказать сейчас",
+      },
+      popular: {
+        title: "Популярные товары",
+      },
       newItems: "Новинки",
       warranty: {
         title: "Гарантия",
@@ -361,6 +381,10 @@ const translations = {
       empty: "Categories are unavailable",
       cta: "Go to catalog",
     },
+    goods: {
+      addToCart: "Add to cart",
+      inCart: "In cart",
+    },
     navigation: {
       heating: "Heating",
       renewables: "Renewable energy",
@@ -377,6 +401,12 @@ const translations = {
       sampleGlasses: "X-ray protective glasses",
     },
     home: {
+      slider: {
+        orderNow: "Order now",
+      },
+      popular: {
+        title: "Popular products",
+      },
       newItems: "Новинки",
       warranty: {
         title: "Гарантия",
