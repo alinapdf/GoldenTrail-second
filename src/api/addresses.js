@@ -1,17 +1,6 @@
+import { buildHeaders } from "./http";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://goldentrail.az";
-
-const resolveLanguage = () => {
-  if (typeof window === "undefined") return null;
-
-  const stored = window.localStorage.getItem("language");
-  if (stored) return stored;
-
-  if (window.navigator?.language) {
-    return window.navigator.language.split("-")[0];
-  }
-
-  return null;
-};
 
 const sanitizeId = (value) => {
   const parsed = Number(value);
@@ -19,8 +8,7 @@ const sanitizeId = (value) => {
 };
 
 export const fetchAddresses = async () => {
-  const language = resolveLanguage();
-  const headers = language ? { "X-Language": language } : {};
+  const headers = buildHeaders();
 
   const response = await fetch(`${API_BASE_URL}/api/profile/addresses`, {
     credentials: "include",
@@ -36,11 +24,9 @@ export const fetchAddresses = async () => {
 };
 
 export const createAddress = async (payload) => {
-  const language = resolveLanguage();
-  const headers = {
+  const headers = buildHeaders({
     "Content-Type": "application/json",
-    ...(language ? { "X-Language": language } : {}),
-  };
+  });
 
   const response = await fetch(`${API_BASE_URL}/api/profile/addresses`, {
     method: "POST",
@@ -64,11 +50,9 @@ export const updateAddress = async (id, payload) => {
     throw new Error("Invalid address id");
   }
 
-  const language = resolveLanguage();
-  const headers = {
+  const headers = buildHeaders({
     "Content-Type": "application/json",
-    ...(language ? { "X-Language": language } : {}),
-  };
+  });
 
   const response = await fetch(`${API_BASE_URL}/api/profile/addresses/${normalizedId}`, {
     method: "PUT",
@@ -92,8 +76,7 @@ export const deleteAddress = async (id) => {
     throw new Error("Invalid address id");
   }
 
-  const language = resolveLanguage();
-  const headers = language ? { "X-Language": language } : {};
+  const headers = buildHeaders();
 
   const response = await fetch(`${API_BASE_URL}/api/profile/addresses/${normalizedId}`, {
     method: "DELETE",

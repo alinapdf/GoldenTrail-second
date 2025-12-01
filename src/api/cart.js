@@ -1,20 +1,8 @@
 import { formatProductImageUrl } from "./products";
 import { filterFerroliList } from "./ferroli";
+import { buildHeaders } from "./http";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://goldentrail.az";
-
-const resolveLanguage = () => {
-  if (typeof window === "undefined") return null;
-
-  const stored = window.localStorage.getItem("language");
-  if (stored) return stored;
-
-  if (window.navigator?.language) {
-    return window.navigator.language.split("-")[0];
-  }
-
-  return null;
-};
 
 const sanitizeNumber = (value) => {
   const number = Number(value);
@@ -35,11 +23,9 @@ export const addOrUpdateCartItem = async ({
     throw new Error("Invalid cart payload");
   }
 
-  const language = resolveLanguage();
-  const headers = {
+  const headers = buildHeaders({
     "Content-Type": "application/json",
-    ...(language ? { "X-Language": language } : {}),
-  };
+  });
 
   const body = {
     product_id: normalizedProductId,
@@ -69,8 +55,7 @@ export const addOrUpdateCartItem = async ({
 };
 
 export const fetchCartItems = async () => {
-  const language = resolveLanguage();
-  const headers = language ? { "X-Language": language } : {};
+  const headers = buildHeaders();
 
   const response = await fetch(`${API_BASE_URL}/api/cart`, {
     credentials: "include",
@@ -102,8 +87,7 @@ export const deleteCartItem = async (cartItemId) => {
     throw new Error("Invalid cart item id");
   }
 
-  const language = resolveLanguage();
-  const headers = language ? { "X-Language": language } : {};
+  const headers = buildHeaders();
 
   const response = await fetch(`${API_BASE_URL}/api/cart/${normalizedId}`, {
     method: "DELETE",
@@ -125,8 +109,7 @@ export const incrementCartItem = async (cartItemId) => {
     throw new Error("Invalid cart item id");
   }
 
-  const language = resolveLanguage();
-  const headers = language ? { "X-Language": language } : {};
+  const headers = buildHeaders();
 
   const response = await fetch(`${API_BASE_URL}/api/cart/${normalizedId}/increment`, {
     method: "POST",
@@ -148,8 +131,7 @@ export const decrementCartItem = async (cartItemId) => {
     throw new Error("Invalid cart item id");
   }
 
-  const language = resolveLanguage();
-  const headers = language ? { "X-Language": language } : {};
+  const headers = buildHeaders();
 
   const response = await fetch(`${API_BASE_URL}/api/cart/${normalizedId}/decrement`, {
     method: "POST",

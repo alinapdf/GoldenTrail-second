@@ -1,19 +1,7 @@
 import { filterFerroliList, keepFerroliObject } from "./ferroli";
+import { buildHeaders } from "./http";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://goldentrail.az";
-
-const resolveLanguage = () => {
-  if (typeof window === "undefined") return null;
-
-  const stored = window.localStorage.getItem("language");
-  if (stored) return stored;
-
-  if (window.navigator?.language) {
-    return window.navigator.language.split("-")[0];
-  }
-
-  return null;
-};
 
 const sanitizeNumber = (value) => {
   const number = Number(value);
@@ -28,11 +16,9 @@ export const createOrder = async ({ paymentMethodId, shippingMethodId }) => {
     throw new Error("Invalid order payload");
   }
 
-  const language = resolveLanguage();
-  const headers = {
+  const headers = buildHeaders({
     "Content-Type": "application/json",
-    ...(language ? { "X-Language": language } : {}),
-  };
+  });
 
   const response = await fetch(`${API_BASE_URL}/api/orders`, {
     method: "POST",
@@ -52,10 +38,7 @@ export const createOrder = async ({ paymentMethodId, shippingMethodId }) => {
 };
 
 export const fetchOrders = async () => {
-  const language = resolveLanguage();
-  const headers = {
-    ...(language ? { "X-Language": language } : {}),
-  };
+  const headers = buildHeaders();
 
   const response = await fetch(`${API_BASE_URL}/api/orders`, {
     method: "GET",
@@ -78,10 +61,7 @@ export const fetchOrderById = async (orderId) => {
     throw new Error("Invalid order id");
   }
 
-  const language = resolveLanguage();
-  const headers = {
-    ...(language ? { "X-Language": language } : {}),
-  };
+  const headers = buildHeaders();
 
   const response = await fetch(`${API_BASE_URL}/api/orders/${id}`, {
     method: "GET",
