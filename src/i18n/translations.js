@@ -134,15 +134,15 @@ const translations = {
           "Rəsmi zəmanət, peşəkar quraşdırma və səlahiyyətli şəbəkəmiz vasitəsilə operativ servis xidməti təqdim edirik.",
       },
       testimonials: {
-        title: "Отзывы клиентов",
-        empty: "Пока нет отзывов.",
+        title: "Müştəri rəyləri",
+        empty: "Hələ rəy yoxdur.",
       },
       about: {
-        title: "О нас",
+        title: "Haqqımızda",
         defaultParagraphs: [
-          "Мы являемся официальным дистрибьютором продукции Ferroli в Азербайджане — итальянского производителя с более чем 65-летним опытом в сфере отопления, водонагрева и климатических решений.",
-          "Наша миссия — предлагать клиентам современное, энергоэффективное и надёжное оборудование, которое соответствует европейским стандартам качества и дарит комфорт в каждый дом.",
-          "Ferroli — это инновации, долговечность и стиль, а мы — ваш надёжный партнёр на пути к комфорту и теплу.",
+          "Biz Azərbaycanda Ferroli məhsullarının rəsmi distribütoruyuq — 65 ildən artıq təcrübəsi olan italyan istilik, suqızdırma və iqlim həlləri istehsalçısıdır.",
+          "Missiyamız müştərilərə Avropa standartlarına cavab verən müasir, enerji səmərəli və etibarlı avadanlıq təqdim etməkdir ki, hər evə rahatlıq bəxş etsin.",
+          "Ferroli innovasiya, davamlılıq və üslub deməkdir, biz isə rahatlıq və istiliyə aparan yolda sizin etibarlı tərəfdaşınızıq.",
         ],
       },
     },
@@ -431,15 +431,15 @@ const translations = {
           "We provide an official warranty, professional installation, and fast service through our authorized network.",
       },
       testimonials: {
-        title: "Отзывы клиентов",
-        empty: "Пока нет отзывов.",
+        title: "Customer reviews",
+        empty: "No reviews yet.",
       },
       about: {
-        title: "О нас",
+        title: "About us",
         defaultParagraphs: [
-          "Мы являемся официальным дистрибьютором продукции Ferroli в Азербайджане — итальянского производителя с более чем 65-летним опытом в сфере отопления, водонагрева и климатических решений.",
-          "Наша миссия — предлагать клиентам современное, энергоэффективное и надёжное оборудование, которое соответствует европейским стандартам качества и дарит комфорт в каждый дом.",
-          "Ferroli — это инновации, долговечность и стиль, а мы — ваш надёжный партнёр на пути к комфорту и теплу.",
+          "We are the official distributor of Ferroli products in Azerbaijan—an Italian manufacturer with over 65 years of experience in heating, water heating, and climate solutions.",
+          "Our mission is to offer customers modern, energy-efficient, and reliable equipment that meets European quality standards and brings comfort to every home.",
+          "Ferroli stands for innovation, durability, and style, and we are your reliable partner on the path to comfort and warmth.",
         ],
       },
     },
