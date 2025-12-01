@@ -1,4 +1,3 @@
-import { filterFerroliList, keepFerroliObject } from "./ferroli";
 import { buildHeaders } from "./http";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://goldentrail.az";
@@ -48,13 +47,9 @@ export const fetchProducts = async (filters = {}) => {
 
   const data = await response.json();
 
-  if (!Array.isArray(data)) {
-    return [];
-  }
+  if (!Array.isArray(data)) return [];
 
-  const filtered = filterFerroliList(data);
-
-  return filtered.map((product) => ({
+  return data.map((product) => ({
     ...product,
     image: formatProductImageUrl(product.image),
   }));
@@ -74,17 +69,17 @@ export const fetchProductFilters = async () => {
 
   const data = await response.json();
 
-  if (!data || typeof data !== "object") {
-    return null;
-  }
+  if (!data || typeof data !== "object") return null;
 
   const catalogs = Array.isArray(data.catalogs) ? data.catalogs : [];
-  const filteredCatalogs = filterFerroliList(catalogs).map((catalog) => ({
+  const normalizedCatalogs = catalogs.map((catalog) => ({
     ...catalog,
-    categories: filterFerroliList(catalog?.categories).map((category) => ({
-      ...category,
-      children: filterFerroliList(category?.children),
-    })),
+    categories: (Array.isArray(catalog?.categories) ? catalog.categories : []).map(
+      (category) => ({
+        ...category,
+        children: Array.isArray(category?.children) ? category.children : [],
+      })
+    ),
   }));
 
   return {
@@ -95,7 +90,7 @@ export const fetchProductFilters = async () => {
     max_price:
       typeof data.max_price === "number" ? data.max_price : Number(data.max_price) || 0,
     brands: Array.isArray(data.brands) ? data.brands : [],
-    catalogs: filteredCatalogs,
+    catalogs: normalizedCatalogs,
   };
 };
 
@@ -114,17 +109,15 @@ export const fetchProduct = async (id) => {
   }
 
   const data = await response.json();
-  const ferroliProduct = keepFerroliObject(data);
+  if (!data || typeof data !== "object") return null;
 
-  if (!ferroliProduct) return null;
-
-  const formattedImages = (ferroliProduct.images || []).map((img) =>
+  const formattedImages = (data.images || []).map((img) =>
     formatProductImageUrl(img.url || img.image || img.path || img)
   );
 
   return {
-    ...ferroliProduct,
-    image: formatProductImageUrl(ferroliProduct.image),
+    ...data,
+    image: formatProductImageUrl(data.image),
     images: formattedImages,
   };
 };
