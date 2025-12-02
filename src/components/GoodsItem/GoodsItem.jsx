@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { addOrUpdateCartItem } from "../../api/cart";
 import { addFavorite } from "../../api/favorites";
 import useLanguage from "../../hooks/useLanguage";
+import { formatProductImageUrl } from "../../api/products";
 
 const formatPrice = (value) =>
   typeof value === "number" ? `${value.toFixed(2)} AZN` : value || "";
@@ -42,7 +43,13 @@ const GoodsItem = ({ product }) => {
   const displayTag = product.goodsTag || (product.is_new ? "New" : "");
   const displayName = product.name || product.title || product.sku || "";
   const displayDesc = product.desc || product.sku || "";
-  const displayImage = product.img || product.image || "";
+  const displayImage = formatProductImageUrl(
+    product.image ||
+      product.img ||
+      product.images?.[0]?.url ||
+      product.images?.[0]?.image ||
+      product.images?.[0]?.path
+  );
   const id = product.id;
 
   const updateQuantity = async (nextQty) => {

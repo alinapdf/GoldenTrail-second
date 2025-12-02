@@ -16,6 +16,12 @@ const stripBasePath = (path, base) => {
     return normalizedPath.slice(basePath.length).replace(/^\/+/, "");
   }
 
+  const baseTail = basePath.split("/").filter(Boolean).pop();
+
+  if (baseTail && normalizedPath.toLowerCase().startsWith(`${baseTail.toLowerCase()}/`)) {
+    return normalizedPath.slice(baseTail.length + 1).replace(/^\/+/, "");
+  }
+
   return normalizedPath;
 };
 
@@ -62,10 +68,15 @@ export const fetchProducts = async (filters = {}) => {
 
   if (!Array.isArray(data)) return [];
 
-  return data.map((product) => ({
-    ...product,
-    image: formatProductImageUrl(product.image),
-  }));
+  return data.map((product) => {
+    const formattedImage = formatProductImageUrl(product.image || product.img);
+
+    return {
+      ...product,
+      image: formattedImage,
+      img: formattedImage,
+    };
+  });
 };
 
 export const fetchProductFilters = async () => {
@@ -128,9 +139,12 @@ export const fetchProduct = async (id) => {
     formatProductImageUrl(img.url || img.image || img.path || img)
   );
 
+  const formattedImage = formatProductImageUrl(data.image || data.img);
+
   return {
     ...data,
-    image: formatProductImageUrl(data.image),
+    image: formattedImage,
+    img: formattedImage,
     images: formattedImages,
   };
 };
